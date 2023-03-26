@@ -8,7 +8,9 @@ export const Products = () => {
     const { isLoading, data: products, isError, error } = useQuery({
         queryKey: ['products'],
         queryFn: getProducts,
-        select: products => products.sort((a, b) => new Date(b.created) - new Date(a.created))
+        select: products => products.sort(
+            (a, b) =>
+                new Date(b.created) - new Date(a.created))
     })
 
     const deleteProdutMutation = useMutation({
@@ -33,12 +35,17 @@ export const Products = () => {
             <h3>{product.name}</h3>
             <p>{product.description}</p>
             <p>{product.price}</p>
-            <button onClick={() => deleteProdutMutation.mutate(product.id)}>Delete</button>
+            <button onClick={() =>
+                deleteProdutMutation.mutate(product.id)}>
+                Delete
+            </button>
             <input
                 checked={product.inStock}
                 type="checkbox"
                 onChange={(e) => {
-                    updateProductMutation.mutate({ ...product, inStock: e.target.checked })
+                    updateProductMutation.mutate(
+                        { ...product, inStock: e.target.checked }
+                    )
                 }
                 } />
             <label htmlFor={product.id}>In Stock</label>
